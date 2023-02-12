@@ -39,4 +39,5 @@ $wshell = New-Object -ComObject wscript.shell
 $wshell.SendKeys('%{TAB}')
 
 Write-Host "Personal registry tweaks applied."
-Show-Confirm-Prompt
+Show-Confirm-Prompt "Press any key to reboot..."
+Restart-Computer

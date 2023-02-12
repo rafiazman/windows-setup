@@ -1,6 +1,9 @@
 function Show-Confirm-Prompt {
+    param (
+        $Message = "Press any key to continue..."
+    )
     Write-Host ""
-    Write-Host "Press any key to continue..."
+    Write-Host $Message
     [void][System.Console]::ReadKey($true)
 }
 
