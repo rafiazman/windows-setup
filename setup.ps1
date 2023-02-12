@@ -18,7 +18,7 @@ function Show-Menu {
     Clear-Host
     Write-Host "================ Bootstrap Windows 11 ================"
     Write-Host ""
-    Write-Host "1. Apply registry tweaks (reboot required)"
+    Write-Host "1. Apply registry tweaks"
     Write-Host "2. Install apps (requires internet connection)"
     Write-Host "3. Set up Cloud Drive"
     Write-Host ""
