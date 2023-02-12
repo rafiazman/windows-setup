@@ -12,6 +12,7 @@ function Install-WinGet-Apps {
     $winget_apps = @(
         'Bitwarden.Bitwarden'
         'LibreWolf.LibreWolf'
+        'ProtonTechnologies.ProtonVPN'
         '7zip.7zip'
         'Betterbird.Betterbird'
         'Eugeny.Tabby'
@@ -24,7 +25,6 @@ function Install-WinGet-Apps {
         'Kopia.KopiaUI'
         'Obsidian.Obsidian'
         'PDFsam.PDFsam'
-        'ProtonTechnologies.ProtonVPN'
         'qBittorrent.qBittorrent'
         'SyncTrayzor.SyncTrayzor'
         'WinDirStat.WinDirStat'
