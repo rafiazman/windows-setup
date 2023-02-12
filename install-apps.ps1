@@ -40,10 +40,10 @@ function Install-WinGet-Apps {
     )
 
     foreach ($app in $winget_apps) {
-        winget install --id $app -e -h -s winget --accept-package-agreements --accept-source-agreements
+        winget install --id $app -e -s winget --accept-package-agreements --accept-source-agreements
     }
     foreach ($app in $msstore_apps) {
-        winget install --id $app -e -h -s msstore --accept-package-agreements --accept-source-agreements
+        winget install --id $app -e -s msstore --accept-package-agreements --accept-source-agreements
     }
 
     # Visual Studio Code
