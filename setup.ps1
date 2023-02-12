@@ -47,7 +47,6 @@ do {
     Write-Host -NoNewline "Please make a selection: "
     $key = $Host.UI.RawUI.ReadKey()
     Write-Host ""
-    Write-Host ""
     switch ($key.Character) {
         1 {
             Write-Host "Applying personal registry tweaks..."
