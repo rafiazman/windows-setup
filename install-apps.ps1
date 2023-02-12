@@ -8,7 +8,7 @@ function Install-Exe {
     Start-Process -Wait -FilePath ".\$OutFile" -Argument "/silent" -PassThru
     Remove-Item ".\$OutFile"
 }
-function Install-Apps {
+function Install-WinGet-Apps {
     $winget_apps = @(
         'Eugeny.Tabby'
         'Microsoft.PowerToys'
@@ -41,28 +41,33 @@ function Install-Apps {
     )
 
     foreach ($app in $winget_apps) {
-        winget install --id $app -e -s winget
+        winget install --id $app -e -h -s winget --accept-package-agreements --accept-source-agreements
     }
     foreach ($app in $msstore_apps) {
-        winget install --id $app -e -s msstore
+        winget install --id $app -e -h -s msstore --accept-package-agreements --accept-source-agreements
     }
 
     # Visual Studio Code
     # https://github.com/microsoft/winget-cli/discussions/1798#discussioncomment-4374698
-    winget install Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders,addtopath"'
-
-    # Barrier v2.3.4 -- does not have the Windows display scale issue that affects moving mouse from Windows -> Linux
-    Install-Exe "https://github.com/debauchee/barrier/releases/download/v2.3.4/BarrierSetup-2.3.4-release.exe"
-
-    # Hurl browser picker
-    Install-Exe "https://github.com/U-C-S/Hurl/releases/download/v0.7.1/Hurl_Installer.exe"
-
-    # SmoothScroll
-    Install-Exe "https://www.smoothscroll.net/win/download/SmoothScroll_Setup.exe"
-
-    # spicetify
-    Invoke-WebRequest -useb "https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.ps1" | Invoke-Expression
-    Invoke-WebRequest -useb "https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1" | Invoke-Expression
+    winget install --id Microsoft.VisualStudioCode -e -h -s winget --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders,addtopath"' --accept-package-agreements --accept-source-agreements    
 }
 
-Install-Apps
+# $before = Get-ChildItem -Path "$env:HOMEPATH\Desktop" -file -filter *.lnk
+
+Install-WinGet-Apps
+# Barrier v2.3.4 -- does not have the Windows display scale issue that affects moving mouse from Windows -> Linux
+Install-Exe "https://github.com/debauchee/barrier/releases/download/v2.3.4/BarrierSetup-2.3.4-release.exe"
+# Hurl browser picker
+Install-Exe "https://github.com/U-C-S/Hurl/releases/download/v0.7.1/Hurl_Installer.exe"
+# SmoothScroll
+Install-Exe "https://www.smoothscroll.net/win/download/SmoothScroll_Setup.exe"
+
+# $after = Get-ChildItem -Path $user_location
+# $linksToDelete = $after | Where-Object { $before -NotContains $_ }
+# foreach ($link in $linksToDelete) {
+#     Remove-Item $link
+# }
+
+# spicetify
+Invoke-WebRequest -useb "https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.ps1" | Invoke-Expression
+Invoke-WebRequest -useb "https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1" | Invoke-Expression
