@@ -5,16 +5,12 @@ function Install-Exe {
     
     $OutFile = Split-Path $Uri -Leaf
     Write-Host "Downloading $Uri"
-    Invoke-WebRequest -Uri $Uri -OutFile $OutFile
+    Invoke-WebRequest -Uri $Uri -OutFile "$env:temp\$OutFile"
     Write-Host "$OutFile downloaded."
 
     Write-Host "Executing $OutFile install..."
     Start-Process -Wait -FilePath ".\$OutFile" -Argument "/silent" -PassThru
     Write-Host "$OutFile install attempted."
-
-    Write-Host "Removing $OutFile installer..."
-    Remove-Item ".\$OutFile"
-    Write-Host "$OutFile removed."
 }
 function Install-WinGet-Apps {
     $winget_apps = @(
@@ -70,11 +66,11 @@ function Install-Spotify {
 
 Install-WinGet-Apps
 # Barrier v2.3.4 -- does not have the Windows display scale issue that affects moving mouse from Windows -> Linux
-Install-Exe "https://github.com/debauchee/barrier/releases/download/v2.3.4/BarrierSetup-2.3.4-release.exe"
+# Install-Exe "https://github.com/debauchee/barrier/releases/download/v2.3.4/BarrierSetup-2.3.4-release.exe"
 # Hurl browser picker
-Install-Exe "https://github.com/U-C-S/Hurl/releases/download/v0.7.1/Hurl_Installer.exe"
+# Install-Exe "https://github.com/U-C-S/Hurl/releases/download/v0.7.1/Hurl_Installer.exe"
 # SmoothScroll
-Install-Exe "https://www.smoothscroll.net/win/download/SmoothScroll_Setup.exe"
+# Install-Exe "https://www.smoothscroll.net/win/download/SmoothScroll_Setup.exe"
 
 # $after = Get-ChildItem -Path $user_location
 # $linksToDelete = $after | Where-Object { $before -NotContains $_ }
