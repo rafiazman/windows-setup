@@ -43,18 +43,18 @@ do {
         1 {
             Write-Host "Applying personal registry tweaks..."
             Invoke-Remote-Script "apply-reg-tweaks.ps1"
-            Write-Host "Personal registry tweaks applied ✅"
+            Write-Host "Personal registry tweaks applied."
 
             Write-Host " "
 
             Write-Host "Applying taskbar tweaks..."
             Invoke-Remote-Script "CustomizeTaskbar.ps1"
-            Write-Host "Taskbar tweaks applied ✅"
+            Write-Host "Taskbar tweaks applied ."
 
             Write-Host " "
 
-            Write-Host "Registry tweaks applied 👍"
-            Pause
+            Write-Host "Registry tweaks applied!"
+            Read-Host -Prompt "Press Enter to continue"
         } 
         2 {
             Invoke-Remote-Script "install-apps.ps1"
@@ -65,7 +65,7 @@ do {
         }
         default {
             Write-Host "Invalid option selected."
-            Start-Sleep -Seconds 2
+            Read-Host -Prompt "Press Enter to continue"
         }
     }
 }
