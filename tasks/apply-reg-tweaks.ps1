@@ -30,13 +30,21 @@ Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer
 # Remove default wallpaper
 Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop\' -Name WallPaper -value ""
 
+# Unpin all applications on taskbar
+Write-Host "Unpinning Apps..."
+$TaskbarAppList = (New-Object -Com Shell.Application).NameSpace("shell:::{4234d49b-0245-4df3-b780-3893943456e1}").Items()
+foreach ($App in $TaskbarAppList) {
+    $App.Verbs() | ForEach-Object { if ($_.Name -eq "Unpin from tas&kbar") { Write-Host "Unpinning "$App.Name; $_.DoIt() } }
+}
+Write-Host ""
+
 # Restart explorer.exe
-Stop-Process -Name explorer -Force
+# Stop-Process -Name explorer -Force
 
 # Put focus back on powershell window via alt+tab
 # https://stackoverflow.com/a/54608116
-$wshell = New-Object -ComObject wscript.shell
-$wshell.SendKeys('%{TAB}')
+# $wshell = New-Object -ComObject wscript.shell
+# $wshell.SendKeys('%{TAB}')
 
 Write-Host "Personal registry tweaks applied."
 Show-Confirm-Prompt "Press any key to reboot..."
