@@ -43,7 +43,7 @@ function Install-WinGet-Apps {
     $errorList = @()
 
     foreach ($app in $winget_apps) {
-        winget install --id $app -e -s winget --accept-package-agreements --accept-source-agreements
+        winget install --id $app -e -s winget --accept-package-agreements --accept-source-agreements --verbose-logs
         if ($LastExitCode -ne 0) {
             $errorList += $app
         }
