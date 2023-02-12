@@ -8,7 +8,6 @@ function Install-Exe {
     Start-Process -Wait -FilePath ".\$OutFile" -Argument "/silent" -PassThru
     Remove-Item ".\$OutFile"
 }
-
 function Install-Apps {
     $winget_apps = @(
         'Eugeny.Tabby'
@@ -30,6 +29,7 @@ function Install-Apps {
         'SyncTrayzor.SyncTrayzor'
         'WinDirStat.WinDirStat'
         'Spotify.Spotify'
+        'Ferdium.Ferdium'
     )
     $msstore_apps = @(
         # Phone Link
@@ -41,10 +41,10 @@ function Install-Apps {
     )
 
     foreach ($app in $winget_apps) {
-        winget install -id $app -e -s winget
+        winget install --id $app -e -s winget
     }
     foreach ($app in $msstore_apps) {
-        winget install -id $app -e -s msstore
+        winget install --id $app -e -s msstore
     }
 
     # Visual Studio Code
@@ -61,8 +61,16 @@ function Install-Apps {
     Install-Exe "https://www.smoothscroll.net/win/download/SmoothScroll_Setup.exe"
 
     # spicetify
-    Invoke-WebRequest -useb https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.ps1 | Invoke-Expression
-    Invoke-WebRequest -useb https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1 | Invoke-Expression
+    Invoke-WebRequest -useb "https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.ps1" | Invoke-Expression
+    Invoke-WebRequest -useb "https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1" | Invoke-Expression
+}
+
+function Merge-Reg-File {
+    param (
+        $Path
+    )
+    Invoke-Command { reg import $Path *>&1 | Out-Null }
 }
 
 Install-Apps
+Merge-Reg-File ".\registry-tweaks\fix-windows-explorer-stealing-cpu.reg"
