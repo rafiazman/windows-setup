@@ -41,29 +41,31 @@ function Install-WinGet-Apps {
         # mpv.net
         '9N64SQZTB3LM'
     )
+    $errorList = @()
 
     foreach ($app in $winget_apps) {
-        try {
-            winget install --id "$app" -e -s winget --accept-package-agreements --accept-source-agreements
+        winget install --id $app -e -s winget --accept-package-agreements --accept-source-agreements
+        if ($LastExitCode -ne 0) {
+            $errorList += $app
         }
-        catch {
-            Write-Host "Failed to install $app, retry manually later." -ForegroundColor Red
-        }
-        Start-Sleep -Seconds 3
     }
     foreach ($app in $msstore_apps) {
-        try {
-            winget install --id "$app" -e -s msstore --accept-package-agreements --accept-source-agreements
+        winget install --id "$app" -e -s msstore --accept-package-agreements --accept-source-agreements
+        if ($LastExitCode -ne 0) {
+            $errorList += $app
         }
-        catch {
-            Write-Host "Failed to install $app, retry manually later." -ForegroundColor Red
-        }
-        Start-Sleep -Seconds 3
     }
 
     # Visual Studio Code
     # https://github.com/microsoft/winget-cli/discussions/1798#discussioncomment-4374698
     winget install --id Microsoft.VisualStudioCode -e -h -s winget --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders,addtopath"' --accept-package-agreements --accept-source-agreements    
+
+    if ($errorList.Count -gt 0) {
+        Write-Warning @"
+        Failed to install the following applications, retry manually instead:"
+$($errorList | out-string)
+"@
+    }
 }
 
 function Install-Spotify {

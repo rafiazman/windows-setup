@@ -11,7 +11,7 @@ if (!$isAdmin) {
     Write-Host ""
     Write-Host "ERROR: Please re-execute this script from an elevated/administrator PowerShell window."
     break
-    exit 1
+    exit 0
 }
 
 function Show-Menu {
@@ -53,4 +53,4 @@ do {
     }
 }
 until ($key.Character -eq 'Q')
-exit 1
+exit 0
