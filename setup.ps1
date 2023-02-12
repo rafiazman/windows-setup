@@ -4,15 +4,7 @@
 # Written by Rafi Azman
 
 $base_url = "https://raw.githubusercontent.com/rafiazman/windows-setup/master"
-
-function Test-Administrator {  
-    [OutputType([bool])]
-    param()
-    process {
-        [Security.Principal.WindowsPrincipal]$user = [Security.Principal.WindowsIdentity]::GetCurrent();
-        return $user.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator);
-    }
-}
+$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
 function Invoke-Remote-Script {
     param (
@@ -25,19 +17,21 @@ function Show-Menu {
     param (
         [string]$Title = 'Windows Setup Script'
     )
+    
     Clear-Host
     Write-Host "================ $Title ================"
     
-    Write-Host "1: Apply registry tweaks"
-    Write-Host "2: Install apps (requires internet connection)"
-    Write-Host "Q: Press 'Q' to quit."
+    Write-Host "1. Apply registry tweaks"
+    Write-Host "2. Install apps (requires internet connection)"
     Write-Host " "
+    Write-Host "Enter 'q' to quit."
 }
 
-if (-not (Test-Administrator)) {
-    # TODO: define proper exit codes for the given errors 
-    Write-Error "This script must be executed as Administrator.";
-    exit 1;
+if (!$isAdmin) {
+    Write-Host " "
+    Write-Host "ERROR: Please re-execute this script from an elevated/administrator PowerShell window."
+    break
+    exit 1
 }
 
 do {
