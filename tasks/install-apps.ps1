@@ -1,3 +1,32 @@
+$winget_apps = @(
+    'Bitwarden.Bitwarden'
+    'LibreWolf.LibreWolf'
+    'ProtonTechnologies.ProtonVPN'
+    '7zip.7zip'
+    'Betterbird.Betterbird'
+    'Eugeny.Tabby'
+    'Microsoft.PowerToys'
+    'Fork.Fork'
+    'Klocman.BulkCrapUninstaller'
+    'GIMP.GIMP'
+    'gurnec.HashCheckShellExtension'
+    'REALiX.HWiNFO'
+    'Kopia.KopiaUI'
+    'Obsidian.Obsidian'
+    'qBittorrent.qBittorrent'
+    'SyncTrayzor.SyncTrayzor'
+    'WinDirStat.WinDirStat'
+    'Ferdium.Ferdium'
+)
+$msstore_apps = @(
+    # Phone Link
+    '9NMPJ99VJBWV'
+    # Yubico Authenticator
+    '9NFNG39387K0'
+    # mpv.net
+    '9N64SQZTB3LM'
+)
+
 function Install-Exe {
     param (
         $Uri
@@ -13,35 +42,6 @@ function Install-Exe {
     Write-Host "$OutFile install attempted."
 }
 function Install-WinGet-Apps {
-    $winget_apps = @(
-        'Bitwarden.Bitwarden'
-        'LibreWolf.LibreWolf'
-        'ProtonTechnologies.ProtonVPN'
-        '7zip.7zip'
-        'Betterbird.Betterbird'
-        'Eugeny.Tabby'
-        'Microsoft.PowerToys'
-        'Fork.Fork'
-        'Klocman.BulkCrapUninstaller'
-        'GIMP.GIMP'
-        'gurnec.HashCheckShellExtension'
-        'REALiX.HWiNFO'
-        'Kopia.KopiaUI'
-        'Obsidian.Obsidian'
-        'qBittorrent.qBittorrent'
-        'SyncTrayzor.SyncTrayzor'
-        'WinDirStat.WinDirStat'
-        'Ferdium.Ferdium'
-    )
-    $msstore_apps = @(
-        # Phone Link
-        '9NMPJ99VJBWV'
-        # Yubico Authenticator
-        '9NFNG39387K0'
-        # mpv.net
-        '9N64SQZTB3LM'
-    )
-
     foreach ($app in $winget_apps) {
         winget install -e --id $app -s winget --accept-package-agreements --accept-source-agreements
         Write-Host ""
@@ -66,7 +66,7 @@ function Install-Spotify {
     Invoke-WebRequest -useb "https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1" | Invoke-Expression
 }
 
-# $before = Get-ChildItem -Path "$env:HOMEPATH\Desktop" -file -filter *.lnk
+$before = Get-ChildItem -Path "$env:HOMEPATH\Desktop" -file -filter *.lnk
 
 Install-WinGet-Apps
 
@@ -79,8 +79,8 @@ Install-WinGet-Apps
 # SmoothScroll
 # Install-Exe "https://www.smoothscroll.net/win/download/SmoothScroll_Setup.exe"
 
-# $after = Get-ChildItem -Path $user_location
-# $linksToDelete = $after | Where-Object { $before -NotContains $_ }
-# foreach ($link in $linksToDelete) {
-#     Remove-Item $link
-# }
+$after = Get-ChildItem -Path $user_location
+$linksToDelete = $after | Where-Object { $before -NotContains $_ }
+foreach ($link in $linksToDelete) {
+    Remove-Item $link
+}

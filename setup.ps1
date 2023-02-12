@@ -5,8 +5,8 @@
 $repo_url = "https://raw.githubusercontent.com/rafiazman/windows-setup/master"
 
 Invoke-Expression ". { $(Invoke-RestMethod $repo_url/utils.ps1) } "
-$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
+$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 if (!$isAdmin) {
     Write-Host ""
     Write-Host "ERROR: Please re-execute this script from an elevated/administrator PowerShell window."
