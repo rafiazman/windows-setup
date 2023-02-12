@@ -43,11 +43,11 @@ function Install-Exe {
 }
 function Install-WinGet-Apps {
     foreach ($app in $winget_apps) {
-        winget install -e --id $app -s winget --accept-package-agreements --accept-source-agreements
+        winget install -e -h --id $app -s winget --accept-package-agreements --accept-source-agreements
         Write-Host ""
     }
     foreach ($app in $msstore_apps) {
-        winget install -e --id $app -s msstore --accept-package-agreements --accept-source-agreements
+        winget install $app -s msstore
         Write-Host ""
     }
 
