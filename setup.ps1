@@ -6,7 +6,8 @@
 $base_url = "https://raw.githubusercontent.com/rafiazman/windows-setup/master"
 $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
-function Psh-Pause {
+function Show-Confirm-Prompt {
+    Write-Host ""
     Write-Host "Press any key to continue..."
     [void][System.Console]::ReadKey($true)
 }
@@ -18,7 +19,7 @@ function Invoke-Remote-Script {
     Invoke-WebRequest -useb "$base_url/$FileName" | Invoke-Expression
 }
 
-function Print-Menu {
+function Show-Menu {
     param (
         [string]$Title = 'Windows Setup Script'
     )
@@ -28,52 +29,41 @@ function Print-Menu {
     
     Write-Host "1. Apply registry tweaks"
     Write-Host "2. Install apps (requires internet connection)"
-    Write-Host " "
+    Write-Host ""
     Write-Host "Enter 'q' to quit."
+    Write-Host ""
 }
 
 if (!$isAdmin) {
-    Write-Host " "
+    Write-Host ""
     Write-Host "ERROR: Please re-execute this script from an elevated/administrator PowerShell window."
     break
     exit 1
 }
 
 do {
-    Print-Menu
-    Write-Host -NoNewline "Please make a selection: "
+    Show-Menu
 
+    Write-Host -NoNewline "Please make a selection: "
     $key = $Host.UI.RawUI.ReadKey()
+    Write-Host ""
     Write-Host ""
     switch ($key.Character) {
         1 {
             Write-Host "Applying personal registry tweaks..."
             Invoke-Remote-Script "apply-reg-tweaks.ps1"
             Write-Host "Personal registry tweaks applied."
-
-            Write-Host " "
-
-            # Write-Host "Applying taskbar tweaks..."
-            # Invoke-Remote-Script "CustomizeTaskbar.ps1"
-            # Write-Host "Taskbar tweaks applied ."
-
-            # Write-Host " "
-
-            Write-Host "Registry tweaks applied!"
-            Psh-Pause
+            Show-Confirm-Prompt
         } 
         2 {
             Invoke-Remote-Script "install-apps.ps1"
         }
         Q {
-            Write-Host " "
             break
         }
         default {
-            Write-Host ""
             Write-Host "Invalid option selected."
-            Write-Host ""
-            Psh-Pause
+            Show-Confirm-Prompt
         }
     }
 }
