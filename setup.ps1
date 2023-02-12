@@ -67,3 +67,4 @@ do {
     }
 }
 until ($key.Character -eq 'Q')
+exit 1
