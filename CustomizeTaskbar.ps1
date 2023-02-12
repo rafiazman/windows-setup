@@ -4,15 +4,15 @@
     Original: https://raw.githubusercontent.com/Ccmexec/PowerShell/master/Customize%20TaskBar%20and%20Start%20Windows%2011/CustomizeTaskbar.ps1
 #>
 
-[string]$RegValueName = "CustomizeTaskbar"
-[string]$FullRegKeyName = "HKLM:\SOFTWARE\ccmexec\" 
+$RegValueName = "CustomizeTaskbar"
+$FullRegKeyName = "HKLM:\SOFTWARE\ccmexec\" 
 
 # Create registry value if it doesn't exist
 If (!(Test-Path $FullRegKeyName)) {
     New-Item -Path $FullRegKeyName -type Directory -force 
 }
 
-New-itemproperty $FullRegKeyName -Name $RegValueName -Value "1" -Type STRING -Force
+New-ItemProperty $FullRegKeyName -Name $RegValueName -Value "1" -Type STRING -Force
 
 REG LOAD HKLM\Default C:\Users\Default\NTUSER.DAT
 

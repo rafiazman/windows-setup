@@ -39,8 +39,20 @@ do {
     $selection = Read-Host "Please make a selection"
     switch ($selection) {
         '1' {
+            Write-Host "Applying personal registry tweaks..."
             Invoke-Remote-Script "apply-reg-tweaks.ps1"
+            Write-Host "Personal registry tweaks applied ✅"
+
+            Write-Host " "
+
+            Write-Host "Applying taskbar tweaks..."
             Invoke-Remote-Script "CustomizeTaskbar.ps1"
+            Write-Host "Taskbar tweaks applied ✅"
+
+            Write-Host " "
+
+            Write-Host "Registry tweaks applied 👍"
+            Pause
         } '2' {
             Invoke-Remote-Script "install-apps.ps1"
         }
