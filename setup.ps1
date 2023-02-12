@@ -61,6 +61,7 @@ do {
         }
         Q {
             Write-Host " "
+            Write-Host " "
             break
         }
         default {
