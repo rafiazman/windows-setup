@@ -71,12 +71,6 @@ $($errorList | out-string)
     Show-Confirm-Prompt
 }
 
-function Install-Bitwarden {
-    Invoke-RestMethod -OutFile "bitwarden.ps1" -Uri "https://go.btwrdn.co/bw-ps"
-    .\bitwarden.ps1 -install
-    Remove-Item "bitwarden.ps1"
-}
-
 function Install-Spotify {
     winget install --id "Spotify.Spotify" -e -h -s winget --accept-package-agreements --accept-source-agreements
     # spicetify
@@ -86,7 +80,15 @@ function Install-Spotify {
 
 # $before = Get-ChildItem -Path "$env:HOMEPATH\Desktop" -file -filter *.lnk
 
-Install-Bitwarden
+$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+
+if (!$isAdmin) {
+    Write-Host ""
+    Write-Host "ERROR: Please re-execute this script from an elevated/administrator PowerShell window."
+    break
+    exit 0
+}
+
 Install-WinGet-Apps
 
 # Barrier v2.3.4 -- does not have the Windows display scale issue that affects moving mouse from Windows -> Linux
