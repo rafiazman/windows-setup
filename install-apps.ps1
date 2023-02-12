@@ -10,25 +10,24 @@ function Install-Exe {
 }
 function Install-WinGet-Apps {
     $winget_apps = @(
+        'Bitwarden.Bitwarden'
+        'LibreWolf.LibreWolf'
+        '7zip.7zip'
+        'Betterbird.Betterbird'
         'Eugeny.Tabby'
         'Microsoft.PowerToys'
         'Fork.Fork'
         'Klocman.BulkCrapUninstaller'
-        'Bitwarden.Bitwarden'
-        '7zip.7zip'
         'GIMP.GIMP'
         'gurnec.HashCheckShellExtension'
         'REALiX.HWiNFO'
         'Kopia.KopiaUI'
-        'LibreWolf.LibreWolf'
-        'Betterbird.Betterbird'
         'Obsidian.Obsidian'
         'PDFsam.PDFsam'
         'ProtonTechnologies.ProtonVPN'
         'qBittorrent.qBittorrent'
         'SyncTrayzor.SyncTrayzor'
         'WinDirStat.WinDirStat'
-        'Spotify.Spotify'
         'Ferdium.Ferdium'
     )
     $msstore_apps = @(
@@ -52,6 +51,14 @@ function Install-WinGet-Apps {
     winget install --id Microsoft.VisualStudioCode -e -h -s winget --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders,addtopath"' --accept-package-agreements --accept-source-agreements    
 }
 
+function Install-Spotify {
+    winget install --id "Spotify.Spotify" -e -h -s winget --accept-package-agreements --accept-source-agreements
+    
+    # spicetify
+    Invoke-WebRequest -useb "https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.ps1" | Invoke-Expression
+    Invoke-WebRequest -useb "https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1" | Invoke-Expression
+}
+
 # $before = Get-ChildItem -Path "$env:HOMEPATH\Desktop" -file -filter *.lnk
 
 Install-WinGet-Apps
@@ -68,6 +75,3 @@ Install-Exe "https://www.smoothscroll.net/win/download/SmoothScroll_Setup.exe"
 #     Remove-Item $link
 # }
 
-# spicetify
-Invoke-WebRequest -useb "https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.ps1" | Invoke-Expression
-Invoke-WebRequest -useb "https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1" | Invoke-Expression
