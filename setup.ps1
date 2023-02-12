@@ -53,11 +53,11 @@ do {
 
             Write-Host " "
 
-            Write-Host "Applying taskbar tweaks..."
-            Invoke-Remote-Script "CustomizeTaskbar.ps1"
-            Write-Host "Taskbar tweaks applied ."
+            # Write-Host "Applying taskbar tweaks..."
+            # Invoke-Remote-Script "CustomizeTaskbar.ps1"
+            # Write-Host "Taskbar tweaks applied ."
 
-            Write-Host " "
+            # Write-Host " "
 
             Write-Host "Registry tweaks applied!"
             Psh-Pause
