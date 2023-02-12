@@ -1,3 +1,5 @@
+Write-Host "Applying personal registry tweaks..."
+
 # Apply Dark Theme at App-Level
 Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name AppsUseLightTheme -Value 0 -Type Dword -Force
 # Apply Dark Theme at System-Level
@@ -35,3 +37,6 @@ Stop-Process -Name explorer -Force
 # https://stackoverflow.com/a/54608116
 $wshell = New-Object -ComObject wscript.shell
 $wshell.SendKeys('%{TAB}')
+
+Write-Host "Personal registry tweaks applied."
+Show-Confirm-Prompt

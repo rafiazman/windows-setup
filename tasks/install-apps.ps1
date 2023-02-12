@@ -4,9 +4,17 @@ function Install-Exe {
     )
     
     $OutFile = Split-Path $Uri -Leaf
+    Write-Host "Downloading $Uri"
     Invoke-WebRequest -Uri $Uri -OutFile $OutFile
+    Write-Host "$OutFile downloaded."
+
+    Write-Host "Executing $OutFile install..."
     Start-Process -Wait -FilePath ".\$OutFile" -Argument "/silent" -PassThru
+    Write-Host "$OutFile install attempted."
+
+    Write-Host "Removing $OutFile installer..."
     Remove-Item ".\$OutFile"
+    Write-Host "$OutFile removed."
 }
 function Install-WinGet-Apps {
     $winget_apps = @(
@@ -24,7 +32,6 @@ function Install-WinGet-Apps {
         'REALiX.HWiNFO'
         'Kopia.KopiaUI'
         'Obsidian.Obsidian'
-        'PDFsam.PDFsam'
         'qBittorrent.qBittorrent'
         'SyncTrayzor.SyncTrayzor'
         'WinDirStat.WinDirStat'
