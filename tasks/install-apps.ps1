@@ -62,19 +62,31 @@ function Install-Spotify {
     Invoke-WebRequest -useb "https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1" | Invoke-Expression
 }
 
-# $before = Get-ChildItem -Path "$env:HOMEPATH\Desktop" -file -filter *.lnk
+# Prevent script failing due to WinGet not being in PATH, can sometimes happen
+# for reasons unknown 🤷‍♂️
+if ($null -eq (Get-Command "winget.exe" -ErrorAction SilentlyContinue)) { 
+    Write-Host "Unable to find winget.exe in your PATH"
+    Show-Confirm-Prompt
+}
+else {
+    # $before = Get-ChildItem -Path "$env:HOMEPATH\Desktop" -file -filter *.lnk
 
-Install-WinGet-Apps
-# Barrier v2.3.4 -- does not have the Windows display scale issue that affects moving mouse from Windows -> Linux
-# Install-Exe "https://github.com/debauchee/barrier/releases/download/v2.3.4/BarrierSetup-2.3.4-release.exe"
-# Hurl browser picker
-# Install-Exe "https://github.com/U-C-S/Hurl/releases/download/v0.7.1/Hurl_Installer.exe"
-# SmoothScroll
-# Install-Exe "https://www.smoothscroll.net/win/download/SmoothScroll_Setup.exe"
+    Install-WinGet-Apps
 
-# $after = Get-ChildItem -Path $user_location
-# $linksToDelete = $after | Where-Object { $before -NotContains $_ }
-# foreach ($link in $linksToDelete) {
-#     Remove-Item $link
-# }
+    # Barrier v2.3.4 -- does not have the Windows display scale issue that affects moving mouse from Windows -> Linux
+    # Install-Exe "https://github.com/debauchee/barrier/releases/download/v2.3.4/BarrierSetup-2.3.4-release.exe"
+
+    # Hurl browser picker
+    # Install-Exe "https://github.com/U-C-S/Hurl/releases/download/v0.7.1/Hurl_Installer.exe"
+
+    # SmoothScroll
+    # Install-Exe "https://www.smoothscroll.net/win/download/SmoothScroll_Setup.exe"
+
+    # $after = Get-ChildItem -Path $user_location
+    # $linksToDelete = $after | Where-Object { $before -NotContains $_ }
+    # foreach ($link in $linksToDelete) {
+    #     Remove-Item $link
+    # }
+}
+
 
