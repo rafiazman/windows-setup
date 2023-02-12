@@ -43,10 +43,22 @@ function Install-WinGet-Apps {
     )
 
     foreach ($app in $winget_apps) {
-        winget install --id "$app" -e -s winget --accept-package-agreements --accept-source-agreements
+        try {
+            winget install --id "$app" -e -s winget --accept-package-agreements --accept-source-agreements
+        }
+        catch {
+            Write-Host "Failed to install $app, retry manually later." -ForegroundColor Red
+        }
+        Start-Sleep -Seconds 3
     }
     foreach ($app in $msstore_apps) {
-        winget install --id "$app" -e -s msstore --accept-package-agreements --accept-source-agreements
+        try {
+            winget install --id "$app" -e -s msstore --accept-package-agreements --accept-source-agreements
+        }
+        catch {
+            Write-Host "Failed to install $app, retry manually later." -ForegroundColor Red
+        }
+        Start-Sleep -Seconds 3
     }
 
     # Visual Studio Code
