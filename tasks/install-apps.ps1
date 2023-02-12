@@ -41,20 +41,13 @@ function Install-WinGet-Apps {
         # mpv.net
         '9N64SQZTB3LM'
     )
-    $errorList = @()
 
     foreach ($app in $winget_apps) {
-        winget install --id $app -e -s winget --accept-package-agreements --accept-source-agreements --verbose-logs
-        if ($LastExitCode -ne 0) {
-            $errorList += $app
-        }
+        winget install -e --id $app -s winget --accept-package-agreements --accept-source-agreements
         Write-Host ""
     }
     foreach ($app in $msstore_apps) {
-        winget install --id "$app" -e -s msstore --accept-package-agreements --accept-source-agreements
-        if ($LastExitCode -ne 0) {
-            $errorList += $app
-        }
+        winget install -e --id $app -s msstore --accept-package-agreements --accept-source-agreements
         Write-Host ""
     }
 
@@ -63,12 +56,6 @@ function Install-WinGet-Apps {
     winget install --id Microsoft.VisualStudioCode -e -h -s winget --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders,addtopath"' --accept-package-agreements --accept-source-agreements    
     Write-Host ""
 
-    if ($errorList.Count -gt 0) {
-        Write-Warning @"
-        Failed to install the following applications, retry manually instead:"
-$($errorList | out-string)
-"@
-    }
     Show-Confirm-Prompt
 }
 
@@ -80,15 +67,6 @@ function Install-Spotify {
 }
 
 # $before = Get-ChildItem -Path "$env:HOMEPATH\Desktop" -file -filter *.lnk
-
-$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
-
-if (!$isAdmin) {
-    Write-Host ""
-    Write-Host "ERROR: Please re-execute this script from an elevated/administrator PowerShell window."
-    break
-    exit 0
-}
 
 Install-WinGet-Apps
 
