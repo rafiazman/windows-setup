@@ -66,6 +66,7 @@ function Install-WinGet-Apps {
 $($errorList | out-string)
 "@
     }
+    Show-Confirm-Prompt
 }
 
 function Install-Spotify {
@@ -101,5 +102,3 @@ else {
     #     Remove-Item $link
     # }
 }
-
-Show-Confirm-Prompt
