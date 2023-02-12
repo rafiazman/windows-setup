@@ -6,6 +6,11 @@
 $base_url = "https://raw.githubusercontent.com/rafiazman/windows-setup/master"
 $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
+function Psh-Pause {
+    Write-Host "Press any key to continue..."
+    [void][System.Console]::ReadKey($true)
+}
+
 function Invoke-Remote-Script {
     param (
         $FileName
@@ -55,7 +60,7 @@ do {
             Write-Host " "
 
             Write-Host "Registry tweaks applied!"
-            Read-Host -Prompt "Press Enter to continue"
+            Psh-Pause
         } 
         2 {
             Invoke-Remote-Script "install-apps.ps1"
@@ -67,7 +72,8 @@ do {
         default {
             Write-Host ""
             Write-Host "Invalid option selected."
-            Read-Host -Prompt "Press Enter to continue"
+            Write-Host ""
+            Psh-Pause
         }
     }
 }
