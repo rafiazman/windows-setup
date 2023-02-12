@@ -38,11 +38,11 @@ foreach ($App in $TaskbarAppList) {
 }
 Write-Host ""
 
-Restart explorer.exe
+# Restart explorer.exe
 Stop-Process -Name explorer -Force
 
-Put focus back on powershell window via alt+tab
-https://stackoverflow.com/a/54608116
+# Put focus back on powershell window via alt+tab
+# https://stackoverflow.com/a/54608116
 $wshell = New-Object -ComObject wscript.shell
 $wshell.SendKeys('%{TAB}')
 
