@@ -10,7 +10,7 @@ if (!(Test-Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer)) {
 Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Name HideRecommendedSection -Value 1 -Type Dword -Force
 
 # Fix Windows Explorer hogging CPU usage
-# Source: https://christitus.com/windows-explorer-stealing-cpu/
+# https://christitus.com/windows-explorer-stealing-cpu/
 Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\input' -Name IsInputAppPreloadEnabled -Value 0 -Type Dword -Force
 Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Dsh' -Name IsPrelaunchEnabled -Value 0 -Type Dword -Force
 
@@ -30,3 +30,8 @@ Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop\' -Name WallPaper -value ""
 
 # Restart explorer.exe
 Stop-Process -Name explorer -Force
+
+# Put focus back on powershell window via alt+tab
+# https://stackoverflow.com/a/54608116
+$wshell = New-Object -ComObject wscript.shell
+$wshell.SendKeys('%{TAB}')
