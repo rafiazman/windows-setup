@@ -5,7 +5,6 @@ $winget_apps = @(
     '7zip.7zip'
     'Betterbird.Betterbird'
     'Eugeny.Tabby'
-    'Microsoft.PowerToys'
     'Fork.Fork'
     'Klocman.BulkCrapUninstaller'
     'GIMP.GIMP'
@@ -42,6 +41,12 @@ function Install-Exe {
     Write-Host "$OutFile install attempted."
 }
 function Install-WinGet-Apps {
+    # ProtonVPN
+    winget install -e -h --id "ProtonTechnologies.ProtonVPN" -s winget --override "/exenoui /qn" --accept-package-agreements --accept-source-agreements 
+    
+    # PowerToys
+    winget install -e -h --id "Microsoft.PowerToys" -s winget --override "/quiet /norestart" --accept-package-agreements --accept-source-agreements 
+
     foreach ($app in $winget_apps) {
         winget install -e -h --id $app -s winget --accept-package-agreements --accept-source-agreements
         Write-Host ""
@@ -53,7 +58,7 @@ function Install-WinGet-Apps {
 
     # Visual Studio Code
     # https://github.com/microsoft/winget-cli/discussions/1798#discussioncomment-4374698
-    winget install --id Microsoft.VisualStudioCode -e -h -s winget --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders,addtopath"' --accept-package-agreements --accept-source-agreements    
+    winget install -e -h --id Microsoft.VisualStudioCode -s winget --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders,addtopath"' --accept-package-agreements --accept-source-agreements
     Write-Host ""
 
     Show-Confirm-Prompt
