@@ -13,7 +13,7 @@ function Invoke-Remote-Script {
     Invoke-WebRequest -useb "$base_url/$FileName" | Invoke-Expression
 }
 
-function Show-Menu {
+function Print-Menu {
     param (
         [string]$Title = 'Windows Setup Script'
     )
@@ -35,8 +35,8 @@ if (!$isAdmin) {
 }
 
 do {
-    Show-Menu
-    Write-Host "Please make a selection: "
+    Print-Menu
+    Write-Host -NoNewline "Please make a selection: "
 
     $key = $Host.UI.RawUI.ReadKey()
     switch ($key.Character) {
@@ -60,6 +60,7 @@ do {
             Invoke-Remote-Script "install-apps.ps1"
         }
         Q {
+            Write-Host " "
             break
         }
         default {

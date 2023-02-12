@@ -44,4 +44,4 @@ try { $reg.Handle.Close() } catch {}
 [GC]::Collect()
 REG UNLOAD HKLM\Default
 
-stop-process -name explorer –force
+Stop-Process -Name explorer -Force

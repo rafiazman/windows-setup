@@ -36,4 +36,4 @@ Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Dsh -Name
 # Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TransparentGlass -Name DefaultApplied -Value 1 -Type Dword -Force
 
 # Restart explorer.exe
-stop-process -name explorer –force
+Stop-Process -Name explorer -Force
