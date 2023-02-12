@@ -36,9 +36,11 @@ if (!$isAdmin) {
 
 do {
     Show-Menu
-    $selection = Read-Host "Please make a selection"
-    switch ($selection) {
-        '1' {
+    Write-Host "Please make a selection: "
+
+    $key = $Host.UI.RawUI.ReadKey()
+    switch ($key.Character) {
+        1 {
             Write-Host "Applying personal registry tweaks..."
             Invoke-Remote-Script "apply-reg-tweaks.ps1"
             Write-Host "Personal registry tweaks applied ✅"
@@ -53,9 +55,17 @@ do {
 
             Write-Host "Registry tweaks applied 👍"
             Pause
-        } '2' {
+        } 
+        2 {
             Invoke-Remote-Script "install-apps.ps1"
+        }
+        Q {
+            break
+        }
+        default {
+            Write-Host "Invalid option selected."
+            Start-Sleep -Seconds 2
         }
     }
 }
-until ($selection -eq 'q')
+until ($key.Character -eq 'Q')
