@@ -19,34 +19,14 @@ Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\
 # Remove Widgets from Start Menu
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name TaskbarDa -Value 0 -Type Dword -Force
 # Remove Search from Start Menu
-Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name SearchboxTaskbarMode -Value 0 -Type Dword -Force
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name SearchboxTaskbarMode -Value 0 -Type Dword -Force
 # Remove Task View from Start Menu
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name ShowTaskViewButton -Value 0 -Type Dword -Force
 # Remove Chat from Start Menu
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name TaskbarMn -Value 0 -Type Dword -Force
 
-# TODO: Disable Animations
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects -Name VisualFXSetting -Value 3 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\AnimateMinMax -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ComboBoxAnimation -Name DefaultApplied -Value 0 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ControlAnimations -Name DefaultApplied -Value 0 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\CursorShadow -Name DefaultApplied -Value 0 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DragFullWindows -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DropShadow -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DWMAeroPeekEnabled -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DWMEnabled -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DWMSaveThumbnailEnabled -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\FontSmoothing -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListBoxSmoothScrolling -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewAlphaSelect -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewShadow -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\MenuAnimation -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\SelectionFade -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TaskbarAnimations -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\Themes -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ThumbnailsOrIcon -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TooltipAnimation -Name DefaultApplied -Value 1 -Type Dword -Force
-# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TransparentGlass -Name DefaultApplied -Value 1 -Type Dword -Force
+# Remove default wallpaper
+Set-ItemProperty -Path HKCU:\Control Panel\Desktop -Name WallPaper -Value ""
 
 # Restart explorer.exe
 Stop-Process -Name explorer -Force
