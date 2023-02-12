@@ -14,7 +14,6 @@ function Install-Exe {
 }
 function Install-WinGet-Apps {
     $winget_apps = @(
-        'Bitwarden.Bitwarden'
         'LibreWolf.LibreWolf'
         'ProtonTechnologies.ProtonVPN'
         '7zip.7zip'
@@ -48,17 +47,20 @@ function Install-WinGet-Apps {
         if ($LastExitCode -ne 0) {
             $errorList += $app
         }
+        Write-Host ""
     }
     foreach ($app in $msstore_apps) {
         winget install --id "$app" -e -s msstore --accept-package-agreements --accept-source-agreements
         if ($LastExitCode -ne 0) {
             $errorList += $app
         }
+        Write-Host ""
     }
 
     # Visual Studio Code
     # https://github.com/microsoft/winget-cli/discussions/1798#discussioncomment-4374698
     winget install --id Microsoft.VisualStudioCode -e -h -s winget --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders,addtopath"' --accept-package-agreements --accept-source-agreements    
+    Write-Host ""
 
     if ($errorList.Count -gt 0) {
         Write-Warning @"
@@ -69,36 +71,35 @@ $($errorList | out-string)
     Show-Confirm-Prompt
 }
 
+function Install-Bitwarden {
+    Invoke-RestMethod -OutFile "bitwarden.ps1" -Uri "https://go.btwrdn.co/bw-ps"
+    .\bitwarden.ps1 -install
+    Remove-Item "bitwarden.ps1"
+}
+
 function Install-Spotify {
     winget install --id "Spotify.Spotify" -e -h -s winget --accept-package-agreements --accept-source-agreements
-    
     # spicetify
     Invoke-WebRequest -useb "https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.ps1" | Invoke-Expression
     Invoke-WebRequest -useb "https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1" | Invoke-Expression
 }
 
-# Prevent script failing due to WinGet not being in PATH, can sometimes happen
-# for reasons unknown 🤷‍♂️
-if ($null -eq (Get-Command "winget.exe" -ErrorAction SilentlyContinue)) { 
-    Write-Host "Unable to find winget.exe in your PATH"
-}
-else {
-    # $before = Get-ChildItem -Path "$env:HOMEPATH\Desktop" -file -filter *.lnk
+# $before = Get-ChildItem -Path "$env:HOMEPATH\Desktop" -file -filter *.lnk
 
-    Install-WinGet-Apps
+Install-Bitwarden
+Install-WinGet-Apps
 
-    # Barrier v2.3.4 -- does not have the Windows display scale issue that affects moving mouse from Windows -> Linux
-    # Install-Exe "https://github.com/debauchee/barrier/releases/download/v2.3.4/BarrierSetup-2.3.4-release.exe"
+# Barrier v2.3.4 -- does not have the Windows display scale issue that affects moving mouse from Windows -> Linux
+# Install-Exe "https://github.com/debauchee/barrier/releases/download/v2.3.4/BarrierSetup-2.3.4-release.exe"
 
-    # Hurl browser picker
-    # Install-Exe "https://github.com/U-C-S/Hurl/releases/download/v0.7.1/Hurl_Installer.exe"
+# Hurl browser picker
+# Install-Exe "https://github.com/U-C-S/Hurl/releases/download/v0.7.1/Hurl_Installer.exe"
 
-    # SmoothScroll
-    # Install-Exe "https://www.smoothscroll.net/win/download/SmoothScroll_Setup.exe"
+# SmoothScroll
+# Install-Exe "https://www.smoothscroll.net/win/download/SmoothScroll_Setup.exe"
 
-    # $after = Get-ChildItem -Path $user_location
-    # $linksToDelete = $after | Where-Object { $before -NotContains $_ }
-    # foreach ($link in $linksToDelete) {
-    #     Remove-Item $link
-    # }
-}
+# $after = Get-ChildItem -Path $user_location
+# $linksToDelete = $after | Where-Object { $before -NotContains $_ }
+# foreach ($link in $linksToDelete) {
+#     Remove-Item $link
+# }
