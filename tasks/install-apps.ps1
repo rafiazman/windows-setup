@@ -80,7 +80,6 @@ function Install-Spotify {
 # for reasons unknown 🤷‍♂️
 if ($null -eq (Get-Command "winget.exe" -ErrorAction SilentlyContinue)) { 
     Write-Host "Unable to find winget.exe in your PATH"
-    Show-Confirm-Prompt
 }
 else {
     # $before = Get-ChildItem -Path "$env:HOMEPATH\Desktop" -file -filter *.lnk
@@ -103,4 +102,4 @@ else {
     # }
 }
 
-
+Show-Confirm-Prompt
