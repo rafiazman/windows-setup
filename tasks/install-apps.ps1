@@ -14,6 +14,7 @@ function Install-Exe {
 }
 function Install-WinGet-Apps {
     $winget_apps = @(
+        'Bitwarden.Bitwarden'
         'LibreWolf.LibreWolf'
         'ProtonTechnologies.ProtonVPN'
         '7zip.7zip'
