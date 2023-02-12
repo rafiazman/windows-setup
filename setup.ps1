@@ -64,6 +64,7 @@ do {
             break
         }
         default {
+            Write-Host ""
             Write-Host "Invalid option selected."
             Read-Host -Prompt "Press Enter to continue"
         }
