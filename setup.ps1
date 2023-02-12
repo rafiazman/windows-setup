@@ -3,6 +3,8 @@
 #
 # Written by Rafi Azman
 
+#Requires -RunAsAdministrator
+
 $base_url = "https://raw.githubusercontent.com/rafiazman/windows-setup/master"
 
 function Invoke-Remote-Script {
@@ -22,6 +24,7 @@ function Show-Menu {
     Write-Host "1: Apply registry tweaks"
     Write-Host "2: Install apps"
     Write-Host "Q: Press 'Q' to quit."
+    Write-Host " "
 }
 
 do {
@@ -34,6 +37,5 @@ do {
             Invoke-Remote-Script "install-apps.ps1"
         }
     }
-    pause
- }
- until ($selection -eq 'q')
+}
+until ($selection -eq 'q')

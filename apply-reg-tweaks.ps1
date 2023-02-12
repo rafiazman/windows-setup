@@ -4,6 +4,7 @@ Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Pe
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name SystemUsesLightTheme -Value 0 -Type Dword -Force
 
 # Remove Recommended section from Start Menu
+New-Item -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer
 Set-ItemProperty -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer -Name HideRecommendedSection -Value 1 -Type Dword -Force
 
 # Fix Windows Explorer hogging CPU usage
@@ -33,3 +34,6 @@ Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Dsh -Name
 # Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ThumbnailsOrIcon -Name DefaultApplied -Value 1 -Type Dword -Force
 # Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TooltipAnimation -Name DefaultApplied -Value 1 -Type Dword -Force
 # Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TransparentGlass -Name DefaultApplied -Value 1 -Type Dword -Force
+
+# Restart explorer.exe
+stop-process -name explorer –force
