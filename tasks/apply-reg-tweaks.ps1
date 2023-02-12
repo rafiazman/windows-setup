@@ -38,14 +38,16 @@ foreach ($App in $TaskbarAppList) {
 }
 Write-Host ""
 
-# Restart explorer.exe
-# Stop-Process -Name explorer -Force
+Restart explorer.exe
+Stop-Process -Name explorer -Force
 
-# Put focus back on powershell window via alt+tab
-# https://stackoverflow.com/a/54608116
-# $wshell = New-Object -ComObject wscript.shell
-# $wshell.SendKeys('%{TAB}')
+Put focus back on powershell window via alt+tab
+https://stackoverflow.com/a/54608116
+$wshell = New-Object -ComObject wscript.shell
+$wshell.SendKeys('%{TAB}')
 
 Write-Host "Personal registry tweaks applied."
-Show-Confirm-Prompt "Press any key to reboot..."
-Restart-Computer
+Show-Confirm-Prompt
+
+# Show-Confirm-Prompt "Press any key to reboot..."
+# Restart-Computer
