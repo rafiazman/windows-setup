@@ -39,6 +39,7 @@ do {
     Write-Host -NoNewline "Please make a selection: "
 
     $key = $Host.UI.RawUI.ReadKey()
+    Write-Host ""
     switch ($key.Character) {
         1 {
             Write-Host "Applying personal registry tweaks..."
@@ -60,7 +61,6 @@ do {
             Invoke-Remote-Script "install-apps.ps1"
         }
         Q {
-            Write-Host " "
             Write-Host " "
             break
         }
