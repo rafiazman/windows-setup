@@ -14,3 +14,6 @@ foreach ($app in $app_list) {
     winget uninstall --id $app
     Write-Host ""
 }
+
+Write-Host "Removed unused stock applications."
+Show-Confirm-Prompt
