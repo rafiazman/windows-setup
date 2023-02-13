@@ -19,8 +19,9 @@ function Show-Menu {
     Write-Host "================ Bootstrap Windows 11 ================"
     Write-Host ""
     Write-Host "1. Apply registry tweaks"
-    Write-Host "2. Install apps (requires internet connection)"
-    Write-Host "3. Set up Cloud Drive"
+    Write-Host "2. Remove stock unused apps"
+    Write-Host "3. Install apps (requires internet connection)"
+    Write-Host "4. Set up Cloud Drive"
     Write-Host ""
     Write-Host "Enter 'q' to quit."
     Write-Host ""
@@ -37,11 +38,14 @@ do {
     switch ($key.Character) {
         1 {
             Invoke-Task "apply-reg-tweaks"
-        } 
+        }
         2 {
+            Invoke-Task "remove-apps"
+        } 
+        3 {
             Invoke-Task "install-apps"
         }
-        3 {
+        4 {
             Invoke-Task "setup-cloud-drive"
         }
         Q {
